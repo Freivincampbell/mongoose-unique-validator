@@ -120,9 +120,9 @@ const plugin = function(schema, options) {
                                 model = model.db.model(model.baseModelName);
                             }
 
-                            model.find(conditions).countDocuments((err, count) => {
-                                resolve(count === 0);
-                            });
+                            const count = model.countDocuments(conditions).exec();
+
+                            resolve(count === 0);
                         });
                     }, pathMessage, type);
                 }
