@@ -33,8 +33,8 @@ const plugin = function(schema, options) {
 
     // Mongoose Schema objects don't describe default _id indexes
     // https://github.com/Automattic/mongoose/issues/5998
-    //const indexes = [[{ _id: 1 }, { unique: true }]].concat(schema.indexes());
-    const indexes = [].concat(schema.indexes());
+    const indexes = [[{ _id: 1 }, { unique: true }]].concat(schema.indexes());
+    // const indexes = [].concat(schema.indexes());
     // Dynamically iterate all indexes
     each(indexes, (index) => {
         const indexOptions = index[1];
@@ -120,7 +120,7 @@ const plugin = function(schema, options) {
                                 model = model.db.model(model.baseModelName);
                             }
 
-                            const count = model.countDocuments(conditions).exec();
+                            const count = await model.countDocuments(conditions).exec();
 
                             resolve(count === 0);
                         });
